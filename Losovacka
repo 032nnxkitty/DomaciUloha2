@@ -1,0 +1,88 @@
+//Arseniy Zolotarev
+using System;
+using System.Collections.Generic;
+
+namespace DomaciUloha2
+{
+    class Losovacka
+    {
+        private static List<int> randomNumbers = new List<int>(5);
+
+        public static void AddNumbersToList()
+        {
+            randomNumbers.Clear();
+            for (int i = 0; i < 5; i++)
+            {
+                AddToListRandomNumberWithoutRepeating();
+            }
+            Console.WriteLine("Hotovo\n\n" +
+                              "Pokracujte stisknutim libovolneho tlacitka");
+            Console.ReadKey();
+        }
+
+        private static void AddToListRandomNumberWithoutRepeating()
+        {
+            var random = new Random();
+            var number = random.Next(1, 40);
+            if (!randomNumbers.Contains(number))
+            {
+                randomNumbers.Add(number);
+            }
+            else
+            {
+                AddToListRandomNumberWithoutRepeating();
+            }
+        } 
+
+        public static void PrintNumbers()
+        {
+            if (randomNumbers.Count > 0)
+            {
+                Console.WriteLine("Vylosovana cisla jsou: " +
+                                  string.Join(", ", randomNumbers));
+            }
+            else
+            {
+                Console.WriteLine("Nejprve vylosujte cisla ");
+            }
+            Console.WriteLine("\nPokracujte stisknutim libovolneho tlacitka");
+            Console.ReadKey();
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            var menuOn = true;
+            while (menuOn)
+            {
+                PrintMenu();
+                switch (Console.ReadKey(true).KeyChar)
+                {
+                    case '1':
+                        Losovacka.AddNumbersToList();
+                        break;
+                    case '2':
+                        Losovacka.PrintNumbers();
+                        break;
+                    case '3':
+                        menuOn = false;
+                        break;
+                }
+            }
+        }
+
+        static void PrintMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Losovaci program\n" +
+                              "Volby:\n" +
+                              "[1] Losovani\n" +
+                              "[2] Vypis vylosovanych cisel\n" +
+                              "[3] Konec programu");
+        }
+    
+    }
+
+}
